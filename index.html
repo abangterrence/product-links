@@ -56,6 +56,12 @@ body {
     margin: 10px 0;
 }
 
+.code {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 8px;
+}
+
 .btn {
     display: block;
     text-align: center;
@@ -73,24 +79,20 @@ body {
 
 <div class="header">Terrence's Pick</div>
 
-<input type="text" class="search-box" id="search" placeholder="Search product code (e.g. MT001)">
+<input type="text" class="search-box" id="search" placeholder="Type MT001 to find product">
 
 <div class="container">
 
-    <div class="card" data-keywords="MT001 oxy milk thistle milk thistle liver">
-    <img src="https://placehold.co/500x300/orange/white?text=Oxy+Milk+Thistle">
-    <div class="product-name">Oxy Milk Thistle</div>
-    <div class="code">Code: MT001</div>
+    <!-- MT001 PRODUCT -->
+    <div class="card" data-keywords="MT001 oxy milk thistle milk thistle liver silymarin">
+        <img src="https://placehold.co/500x300/orange/white?text=Oxy+Milk+Thistle">
+        
+        <div class="product-name">Oxy Milk Thistle</div>
+        <div class="code">Code: MT001</div>
 
-    <a class="btn" href="https://s.shopee.com.my/2g9BO2MSal" target="_blank">
-        View on Shopee
-    </a>
-</div>
-
-    <div class="card" data-keywords="water filter penapis air">
-        <img src="https://placehold.co/500x300/0077ff/white?text=Water+Filter">
-        <div class="product-name">Water Filter</div>
-        <a class="btn" href="https://shopee.com.my/" target="_blank">View on Shopee</a>
+        <a class="btn" href="https://s.shopee.com.my/2g9BO2MSal" target="_blank">
+            View on Shopee
+        </a>
     </div>
 
 </div>
@@ -100,13 +102,18 @@ const search = document.getElementById('search');
 const cards = document.querySelectorAll('.card');
 
 search.addEventListener('input', function() {
-    let value = this.value.toLowerCase();
+    let value = this.value.toLowerCase().trim();
 
     cards.forEach(card => {
-        let keywords = card.getAttribute('data-keywords');
-        if (keywords.includes(value) && value !== "") {
+        let keywords = card.getAttribute('data-keywords').toLowerCase();
+
+        if (value === "") {
+            card.style.display = "none";
+        }
+        else if (keywords.includes(value)) {
             card.style.display = "block";
-        } else {
+        }
+        else {
             card.style.display = "none";
         }
     });
